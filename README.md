@@ -25,8 +25,8 @@
 
 ### Tips1
 
-![image](http://github.com/Monalissaa/Online-fresh-supermarket/raw/master/images/tips1.png)
+![image](https://github.com/Monalissaa/Online-fresh-supermarket/blob/master/images/tips1.png)
 
 ### Tips2
 
-![image](http://github.com/Monalissaa/Online-fresh-supermarket/raw/master/images/tips2.png)
+![image](https://github.com/Monalissaa/Online-fresh-supermarket/blob/master/images/tips2.png)
