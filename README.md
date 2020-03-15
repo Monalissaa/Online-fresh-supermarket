@@ -20,3 +20,13 @@
 * 概要设计文档（架构设计，接口设计，数据库设计，类设计，参考书上第七章）（第十周）
 * 可执行的架构。（将检查代码目录）（第10周）
 * 系统演示+完整的文档（第15周）
+
+## Tips
+
+### Tips1
+
+![image](http://github.com/Monalissaa/Online-fresh-supermarket/raw/master/images/tips1.png)
+
+### Tips2
+
+![image](http://github.com/Monalissaa/Online-fresh-supermarket/raw/master/images/tips2.png)
