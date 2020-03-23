@@ -30,3 +30,8 @@
 ### Tips2
 
 ![image](https://github.com/Monalissaa/Online-fresh-supermarket/blob/master/images/tips2.png)
+
+### Tips3
+
+![image](https://github.com/Monalissaa/Online-fresh-supermarket/blob/master/images/tips3.png)
+
