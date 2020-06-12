@@ -6,47 +6,52 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <link rel="icon" href="resources/网页logo.jpg" type="image/x-icon"/>
+  <title>网上生鲜超市</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css">
   <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="app.css">
   <script src="lib/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body ng-controller="myAppCtrl">
-  <ul class="menu">
-    <li><a href="#!/view1">view1</a></li>
-    <li><a href="#!/view2">view2</a></li>
-    <li><a href="#!/view3">view3</a></li>
-  </ul>
+<body ng-cloak ng-controller="myAppCtrl">
+
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-view></div>
-
-  <div>AngularJS seed app: v<span app-version></span></div>
+    <div ui-view="header" id="Theader" style="height: 60px;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);"></div>
+    <div ui-view="main" id="Tmain" layout-fill style="overflow-y: auto;height: 100%;width: 100%" ></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular-route/angular-route.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
+  <script src="lib/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="lib/angular-file-upload/dist/angular-file-upload.min.js"></script>
+  <script src="lib/angular-resource/angular-resource.min.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
-  <script src="core/version/version.js"></script>
-  <script src="core/version/version-directive.js"></script>
-  <script src="core/version/interpolate-filter.js"></script>
-  <script src="view3/view3.js"></script>
-  <script src="node_modules/angular-aria/angular-aria.min.js"></script>
-  <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-  <script src="node_modules/angular-messages/angular-messages.min.js"></script>
-  <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
-  <script src="node_modules/angular-material/angular-material.min.js"></script>
-  <script src="node_modules/angular-file-upload/dist/angular-file-upload.min.js"></script>
-  <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+  <script src="Login/LoginCtrl.js"></script>
+  <script src="headers/loginCtrl.js"></script>
+  <script src="app.resource.js"></script>
+  <script src="app.factory.js"></script>
+  <script src="helper.js"></script>
 </body>
+<style>
+  html,body{
+    margin: 0;
+    width: 100%;
+    background-color: #f7f7f7;
+    overflow-y: hidden;
+  }
+</style>
 </html>
