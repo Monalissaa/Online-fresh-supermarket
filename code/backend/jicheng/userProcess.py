@@ -26,11 +26,15 @@ class UserProcess:
         p = str(result.password)
         ph = str(result.phone)
         id = str(result.userID)
+        img = str(result.image)
 
         if name == n and pw == p:
             data = {}
             data['phone'] = ph
             data['userID'] = id
+            data['username'] = n
+            data['password'] = p
+            data['image'] = img
             result = {}
             result['code'] = 200
             result['data'] = data
@@ -71,21 +75,29 @@ class UserProcess:
 
         result = User.query.filter(User.userID == userID).first()
 
+        old_image = result.image
+
         result.username = username
         result.phone = phone
         result.password = password
         result.image = image_path
         # print(image)
+        data = {}
+        data['phone'] = result.phone
+        data['userID'] = result.userID
+        data['username'] = result.username
+        data['password'] = result.password
+        data['image'] = result.image
 
         db.session.commit()
-
         # 等提交后没问题了再去删除和保存图片
-        old_image = result.image
+
         os.remove('./static/img/' + old_image.rsplit('/', 1)[-1])
 
         image.save('./static/img/'+ image_filename)
 
         result = {}
+        result['data'] = data
         result['code'] = 200
         return jsonify(result)
 
