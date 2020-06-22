@@ -8,10 +8,80 @@
       <div class="img_wrap flex_layout_column">
         <img src="{{item.image}}" style="width: 100%;">
       </div>
-      <span class="item_name" style="padding: 0 15px">{{item.name}}</span>
+      <span class="item_name" style="padding: 0 15px;margin-top: 5px">{{item.name}}</span>
+      <span class="item_category" style="padding: 0 15px;margin-top: 5px;font-size: 14px;color: #7d8694">{{item.category}}</span>
       <span class="item_price" style="position: absolute;bottom: 12px;color: #e74c3c;">￥{{item.price}}</span>
     </div>
   </div>
+
+  <!--添加商品-->
+  <md-content id="ifAddItem" style="padding:30px 20px;display:none;height: 700px;width: 400px;position: fixed;top:50%;margin-top:-350px;left:50%;margin-left:-200px;background-color: white;border-radius: 5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);z-index: 99">
+    <i ng-click="closeAddItem()" class="glyphicon glyphicon-remove"
+       style="color:#7d8694;font-size:20px;position: absolute;top:10px;right:10px"></i>
+    <form id="ItemInfo" class="flex_layout_column">
+      <div class="flex_layout_column">
+        <div style="width: 160px;height: 160px;box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
+">
+          <img ng-src="{{itemImage}}" style="width:100%;height:100%;"/>
+        </div>
+        <div>
+          <input type="file" id="upload2" accept="image/*" name="image" onchange="angular.element(this).scope().img_upload2(this.files)" style="display: none"/>
+          <md-button md-colors="{background: 'green'}"
+                     style="margin:10px 20px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);"
+                     md-colors-watch="false" ng-click="Register()">
+            <label for="upload2">添加图片</label>
+          </md-button>
+        </div>
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">名称</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">输入商品名称</label>
+          <input type="text" ng-model="name" name="name">
+        </md-input-container>
+        <i ng-show="name" ng-click="clearname()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">分类</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">输入商品分类</label>
+          <input type="text" name="category" ng-model="category">
+        </md-input-container>
+        <i ng-show="category" ng-click="clearcategory()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">价格</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">输入商品价格</label>
+          <input type="number" ng-model="price" name="price">
+        </md-input-container>
+        <i ng-show="price" ng-click="clearprice()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">剩余数量</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">输入剩余数量</label>
+          <input type="number" ng-model="remaining" name="remaining">
+        </md-input-container>
+        <i ng-show="remaining" ng-click="clearremaining()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div style="padding: 0 20px;width:350px;">
+        <div style="margin:22px 5px 0 0">描述</div>
+        <textarea name="word_description" style="width: 310px;height: 100px"></textarea>
+      </div>
+      <div class="flex_layout_row" style="margin-top: 20px">
+        <md-button class="md-primary md-raised"
+                   ng-click="submit()">提交
+        </md-button>
+      </div>
+    </form>
+
+  </md-content>
+
   <md-sidenav class="md-sidenav-left" md-component-id="left"
               md-disable-backdrop="" md-whiteframe="4" style="width: 20%;position: fixed;height: 100%">
 
@@ -20,16 +90,26 @@
     </md-toolbar>
 
     <md-content layout-margin="" style="overflow: hidden">
-      <div class="flex_layout_column" style="width: 100%;height: 400px">
+      <div class="flex_layout_column" style="height: 400px">
         <img src="{{selected.image}}" style="width: 100%;">
       </div>
       <div><h2>{{selected.name}}</h2></div>
+      <div style="float: right;font-size: 16px;color: #7d8694">{{selected.category}}</div>
       <div style="color: #e74c3c"><h3>￥{{selected.price}}</h3></div>
       <div style="font-size: 16px;text-indent: 32px">{{selected.word_description}}</div>
-      <div class="flex_layout_row">
-        <md-button ng-click="toggleLeft('left')" class="md-accent">
-          关闭
-        </md-button>
+
+      <div id="purchase_wrap" class="purchase_wrap">
+        <p id="num_tip">剩余数量：<span id="surplus" class="surplus">{{selected.remaining}}</span></p>
+        <div class="flex_layout_row">
+          <label for="purchase_num" class="num_sub flex_layout_center" ng-click="numchange(0,purchase_num,selected.remaining)"><i class="fa fa-minus" aria-hidden="true"></i></label>
+          <input type="number" id="purchase_num" ng-model="purchase_num">
+          <label for="purchase_num" class="num_plus flex_layout_center" ng-click="numchange(1,purchase_num,selected.remaining)"><i class="fa fa-plus" aria-hidden="true"></i></label>
+        </div>
+        <div class="confirm_wrap">
+          <button id="close_btn" ng-click="toggleLeft('left')" class="cancel"><i class="fa fa-times" aria-hidden="true"></i> 取消</button>
+          <button id="purchase_btn" ng-click="purchase(selected.goodsID, purchase_num, selected.remaining)" class="confirm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 购买</button>
+        </div>
+        <span style="margin-top: 5px;color: #4cae4c;font-size: 20px">{{recall}}</span>
       </div>
     </md-content>
   </md-sidenav>
@@ -39,11 +119,12 @@
       <h1 class="md-toolbar-tools">修改个人信息</h1>
     </md-toolbar>
     <md-content layout-padding>
+      <form id="userInfo">
       <div class="flex_layout_column">
-        <!-- 采用angular循环的方式，对存入thumb的图片进行展示 -->
-        <label>
-          <img ng-src="{{thumb}}" style="width: 120px;height: 120px"/>
-        </label>
+        <div style="width: 120px;height: 120px;border-radius: 50%;box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
+">
+          <img ng-src="{{thumb}}" style="width:100%;height:100%;border-radius: 50%"/>
+        </div>
         <div>
           <input type="file" id="upload" accept="image/*" name="image" onchange="angular.element(this).scope().img_upload(this.files)" style="display: none"/>
           <md-button md-colors="{background: 'green'}"
@@ -52,12 +133,11 @@
             <label for="upload">上传头像</label>
           </md-button>
         </div>
-        <!--        -->
       </div>
       <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
         <span style="margin:22px 5px 0 0">用户名</span>
         <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
-          <label style="margin-bottom: 0">onekanofan</label>
+          <label style="margin-bottom: 0">{{Qusername}}</label>
           <input ng-model="username" name="username">
         </md-input-container>
         <i ng-show="username" ng-click="clearUsername()" class="glyphicon glyphicon-remove"
@@ -75,13 +155,13 @@
       <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
         <span style="margin:22px 5px 0 0">手机号</span>
         <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
-          <label style="margin-bottom: 0">18523048276</label>
+          <label style="margin-bottom: 0">{{QphoneID}}</label>
           <input type="tel" ng-model="phoneID" name="phone">
         </md-input-container>
         <i ng-show="phoneID" ng-click="clearphoneID()" class="glyphicon glyphicon-remove"
            style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
       </div>
-      <div class="flex_layout_row">
+      <div class="flex_layout_row" style="margin-top: 20px">
         <md-button class="md-primary md-raised"
                    ng-click="changeInfo()">修改
         </md-button>
@@ -89,6 +169,7 @@
           关闭
         </md-button>
       </div>
+      </form>
     </md-content>
 
   </md-sidenav>
@@ -175,4 +256,103 @@
     transform: translateY(-10px);
   }
 
+  .purchase_wrap{
+    height: 160px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .purchase_wrap > p{
+    color: #333;
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  .purchase_wrap > p > span{
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  #purchase_num{
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    font-size: 18px;
+    outline: none;
+    outline-offset: 0;
+  }
+  #purchase_num:active{
+    border-top: #c0392b solid 2px;
+    border-bottom: #c0392b solid 2px;
+    transition-duration: 100ms;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .createFollowCheck input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  .num_plus,
+  .num_sub{
+    width: 40px;
+    height: 40px;
+    background-color: #e74c3c;
+    transition-duration: 0.2s;
+    font-size: 25px;
+    color: white;
+    margin: 0;
+    cursor: pointer;
+  }
+  .num_sub{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .num_plus{
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .purchase_wrap > .flex_layout_row > label:hover{
+    background-color: #c0392b;
+  }
+  .confirm_wrap{
+    margin-top: 15px;
+    width: 240px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  .confirm_wrap > .cancel,
+  .confirm_wrap > .confirm{
+    border-radius: 5px;
+    width: 100px;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    padding: 5px 0;
+    transition-duration: 0.3s;
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+  .confirm_wrap > .cancel{
+    background-color: #bdc3c7;
+  }
+  .confirm_wrap > .cancel:hover{
+    background-color: #ecf0f1;
+  }
+  .confirm_wrap > .cancel:focus{
+    box-shadow: 0 0 0 0.2rem rgb(189,195,199);
+  }
+  .confirm_wrap > .confirm{
+    background-color: #e74c3c;
+  }
+  .confirm_wrap > .confirm:hover{
+    background-color: #c0392b;
+  }
+  .confirm_wrap > .confirm:focus{
+    box-shadow: 0 0 0 0.2rem rgb(231,76,60);
+  }
 </style>

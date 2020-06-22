@@ -3,9 +3,13 @@
 angular.module('questionList', ['Resources','ngResource'])
     .factory('List', function ($q, $http, ListResources) {
         return {
-            Login : function (inter, userInfo) {  //获取队列
+            Login : function (inter, username,password) {  //获取队列
                 var defer = $q.defer();
-                ListResources.login({interface : inter,}, userInfo, function (res, headers) {
+                ListResources.login({
+                    interface : inter,
+                    username:username,
+                    password:password
+                }, function (res, headers) {
                     defer.resolve(res);
                 }, function (res, headers) {
                     defer.reject(res);
@@ -31,19 +35,44 @@ angular.module('questionList', ['Resources','ngResource'])
                 });
                 return defer.promise;
             },
-            ManageList : function (inter, cate, key) {  //管理题目
+            Purchase : function (inter, ID, num, user) {  //管理题目
                 var defer = $q.defer();
-                ListResources.get({
+                ListResources.purchase({
                     interface : inter,
-                    keywords : key,
-                    category : cate
+                    goodsID : ID,
+                    userID  : user,
+                    number  : num
                 }, function (res, headers) {
                     defer.resolve(res);
                 }, function (res, headers) {
                     defer.reject(res);
                 });
                 return defer.promise;
-            }
-
-        }
+            },
+            Getcart : function (inter, userID) {  //获取队列
+                var defer = $q.defer();
+                ListResources.getcart({
+                    interface : inter,
+                    userID:userID
+                }, function (res, headers) {
+                    defer.resolve(res);
+                }, function (res, headers) {
+                    defer.reject(res);
+                });
+                return defer.promise;
+            },
+            Deleteitem : function (inter, userID, goodsID) {  //获取队列
+                var defer = $q.defer();
+                ListResources.deleteitem({
+                    interface : inter,
+                    userID:userID,
+                    goodsID:goodsID
+                }, function (res, headers) {
+                    defer.resolve(res);
+                }, function (res, headers) {
+                    defer.reject(res);
+                });
+                return defer.promise;
+            },
+        };
     });

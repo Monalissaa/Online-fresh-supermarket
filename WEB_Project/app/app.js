@@ -9,8 +9,9 @@ angular.module('myApp', [
   'Login',
   'Register',
   'Shopping',
+  'Cart',
   'Headers',
 ])
     .controller('myAppCtrl',function ($scope, $state) {
-      $state.go('Shopping');
+      $state.go('Login');
     });

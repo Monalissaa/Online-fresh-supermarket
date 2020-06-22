@@ -36,7 +36,6 @@ angular.module('Register',['questionList'])
             image:headImage
         }*/
         var formData=new FormData(document.getElementById('userInfo'));
-        console.log(formData.get('image'));
         $http({
             method: 'POST',
             url: 'http://192.151.243.209/software/user',

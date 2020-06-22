@@ -10,10 +10,6 @@ module('Resources',[
             //自定义config
             login:{
                 method:'GET',
-                hasBody:true,
-                headers:{
-                    'Content-Type':'multipart/form-data;charset=UTF-8',
-                }
             },
             registers:{
                 method:'POST',
@@ -25,13 +21,17 @@ module('Resources',[
             shopping:{
                 method:'GET'
             },
-            put:{
-                method:'PUT',
-                hasBody:true,
-                headers:{
-                    'Content-Type':'application/json;charset=UTF-8'
-                }
+            purchase:{
+                method:'POST',
+                hasBody:false
             },
+            getcart:{
+                method:'GET'
+            },
+            deleteitem:{
+                method:'DELETE',
+                hasBody:false
+            }
         });
     });
 

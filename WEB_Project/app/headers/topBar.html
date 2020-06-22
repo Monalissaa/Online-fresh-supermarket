@@ -1,7 +1,15 @@
 <div id="user" class="user">
-    <img src="./resources/飛非魚.jpg" id="head_portrait" class="head_portrait"> <!--替换为用户头像-->
-    <span id="user_name" class="user_name">onekanofan</span>
-    <i class="glyphicon glyphicon-wrench" style="font-size: 28px;color: #7d8694;margin-left: 10px" ng-click="setting()"></i>
+    <md-button ng-show="userID" class="md-primary md-raised" ng-click="purchaseCart()"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 查看购物车
+    </md-button>
+    <md-button ng-show="userID" md-colors="{background: 'green'}" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);margin-right: 700px" md-colors-watch="false" ng-click="addItem()"><i class="fa fa-plus" aria-hidden="true"></i>
+        添加商品
+    </md-button>
+    <img ng-src="{{QheadImage}}" ng-show="userID" id="head_portrait" class="head_portrait"> <!--替换为用户头像-->
+    <span id="user_name" class="user_name">{{Qusername}}</span>
+    <md-button ng-show="!userID" class="md-warn md-raised" ng-click="toLogin()">请登录
+    </md-button>
+    <i ng-show="userID" class="glyphicon glyphicon-wrench" style="font-size: 28px;color: #7d8694;margin-left: 10px" ng-click="setting()"></i>
+
 </div>
 <style>
     .user{
@@ -31,4 +39,5 @@
         background-color: white;
         text-align: center;
     }
+
 </style>

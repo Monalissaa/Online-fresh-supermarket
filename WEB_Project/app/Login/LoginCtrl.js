@@ -25,10 +25,10 @@ angular.module('Login',['questionList'])
         };
         $scope.recall='请登录';
         $scope.login=function(username,password) {
-            var formData=new FormData();
+            /*var formData=new FormData();
             formData.append('username',username);
-            formData.append('password',password);
-            $http({
+            formData.append('password',password);*/
+            /*$http({
                 method: 'GET',
                 url: 'http://192.151.243.209/software/user',
                 data:formData,
@@ -40,14 +40,14 @@ angular.module('Login',['questionList'])
                 console.log(response);
             }, function errorCallback(response) {
                 console.log(response);
-            });
-            /*List.Login('user',formData).then(function (res) {
+            });*/
+            List.Login('user',username,password).then(function (res) {
                 $scope.recall="登录成功";
-                console.log(res);
+                $state.go('Shopping',{user: res.data});
             }, function (res) {
                 $scope.recall="登录失败";
                 console.log(res);
-            });*/
+            });
         };
         $scope.Register=function () {
             $state.go('Register');

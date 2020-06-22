@@ -1,0 +1,273 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--Sidebar content-->
+            <p>
+                搜索:
+                <input ng-model="query" />
+            </p>
+
+        </div>
+        <div class="col-md-10">
+            <!--Body content-->
+
+            <ul class="phones">
+                <li ng-repeat="(key,item) in cart_item | filter:query"
+                    class="thumbnail phone-list-item" style="height: 150px;padding: 0;position: relative">
+                    <div style="float: left;height: 100%;width: 160px;margin-right: 10px" class="flex_layout_center">
+                    <img ng-src="{{item.image}}" style="height: 100%"; alt="{{item.name}}" />
+                    </div>
+                    <h4>{{item.name}}</h4>
+                    <h4 style="color: #e74c3c">￥{{item.price}}</h4>
+                    <h5 style="color: #7d8694">{{item.category}}</h5>
+                    <h5 style="text-indent: 28px">{{item.word_description}}</h5>
+                    <div id="purchase_wrap" class="purchase_wrap">
+                        <p id="num_tip">购买数量：<span id="surplus" class="surplus">{{item.number}}</span></p>
+                        <div class="confirm_wrap flex_layout_row">
+                            <button id="purchase_btn" ng-click="deleteItem(item.goodsID)" class="confirm">删除</button>
+                        </div>
+                        <span style="margin-top: 5px;color: #4cae4c;font-size: 20px">{{recall}}</span>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<style>
+    #Tmain{
+        padding: 20px;
+    }
+
+    .flex_layout_center{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex_layout_row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .flex_layout_column {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    /* Animate `ngRepeat` in `phoneList` component */
+    .phone-list-item.ng-enter,
+    .phone-list-item.ng-leave,
+    .phone-list-item.ng-move {
+        overflow: hidden;
+        transition: 0.5s linear all;
+    }
+
+    .phone-list-item.ng-enter,
+    .phone-list-item.ng-leave.ng-leave-active,
+    .phone-list-item.ng-move {
+        height: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    .phone-list-item.ng-enter.ng-enter-active,
+    .phone-list-item.ng-leave,
+    .phone-list-item.ng-move.ng-move-active {
+        height: 120px;
+        margin-bottom: 20px;
+        opacity: 1;
+        padding-bottom: 4px;
+        padding-top: 15px;
+    }
+
+    /* Animate view transitions with `ngView` */
+    .view-container {
+        position: relative;
+    }
+
+    .view-frame {
+        margin-top: 20px;
+    }
+
+    .view-frame.ng-enter,
+    .view-frame.ng-leave {
+        background: white;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .view-frame.ng-enter {
+        animation: 1s fade-in;
+        z-index: 100;
+    }
+
+    .view-frame.ng-leave {
+        animation: 1s fade-out;
+        z-index: 99;
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes fade-out {
+        from { opacity: 1; }
+        to   { opacity: 0; }
+    }
+    .phones {
+        list-style: none;
+    }
+
+    .phones li {
+        clear: both;
+        height: 115px;
+        padding-top: 15px;
+    }
+
+    .thumb {
+        float: left;
+        height: 100px;
+        margin: -0.5em 1em 1.5em 0;
+        padding-bottom: 1em;
+        width: 100px;
+    }
+
+    /* View: Phone detail */
+    .phone {
+        background-color: white;
+        display: none;
+        float: left;
+        height: 400px;
+        margin-bottom: 2em;
+        margin-right: 3em;
+        padding: 2em;
+        width: 400px;
+    }
+
+    .phone:first-child {
+        display: block;
+    }
+
+    .phone-images {
+        background-color: white;
+        float: left;
+        height: 450px;
+        overflow: hidden;
+        position: relative;
+        width: 450px;
+    }
+
+    .phone-thumbs {
+        list-style: none;
+        margin: 0;
+    }
+
+    .phone-thumbs img {
+        height: 100px;
+        padding: 1em;
+        width: 100px;
+    }
+
+    .phone-thumbs li {
+        background-color: white;
+        border: 1px solid black;
+        cursor: pointer;
+        display: inline-block;
+        margin: 1em;
+    }
+
+    .specs {
+        clear: both;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .specs dt {
+        font-weight: bold;
+    }
+
+    .specs > li {
+        display: inline-block;
+        vertical-align: top;
+        width: 200px;
+    }
+
+    .specs > li > span {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    /* Older browsers might need vendor-prefixes for keyframes and animation! */
+
+    .purchase_wrap{
+        position: absolute;
+        right: 10px;
+        top: 0;
+        height: 145px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .purchase_wrap > p{
+        color: #333;
+        font-size: 18px;
+        margin: 5px 0;
+    }
+    .purchase_wrap > p > span{
+        color: #e74c3c;
+        font-weight: bold;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    .createFollowCheck input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    .purchase_wrap > .flex_layout_row > label:hover{
+        background-color: #c0392b;
+    }
+    .confirm_wrap{
+        margin-top: 15px;
+        width: 150px;
+    }
+    .confirm_wrap > .cancel,
+    .confirm_wrap > .confirm{
+        border-radius: 5px;
+        width: 100px;
+        font-size: 20px;
+        text-align: center;
+        color: white;
+        padding: 5px 0;
+        transition-duration: 0.3s;
+        cursor: pointer;
+        outline: none;
+        border: none;
+    }
+    .confirm_wrap > .confirm{
+        background-color: #e74c3c;
+    }
+    .confirm_wrap > .confirm:hover{
+        background-color: #c0392b;
+    }
+    .confirm_wrap > .confirm:focus{
+        box-shadow: 0 0 0 0.2rem rgb(231,76,60);
+    }
+
+</style>
