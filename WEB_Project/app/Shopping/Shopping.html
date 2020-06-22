@@ -1,0 +1,178 @@
+<div class="all_wrap">
+  <div class="flex_layout_center">
+    <img src="http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/fwxs-banner.jpg" class="top_img">
+    <span class="img_desc">网上生鲜超市</span>
+  </div>
+  <div class="flex_layout_row items_wrap">
+    <div ng-repeat="(key,item) in data" class="item_wrap" ng-click="selectedItem(key)">
+      <div class="img_wrap flex_layout_column">
+        <img src="{{item.image}}" style="width: 100%;">
+      </div>
+      <span class="item_name" style="padding: 0 15px">{{item.name}}</span>
+      <span class="item_price" style="position: absolute;bottom: 12px;color: #e74c3c;">￥{{item.price}}</span>
+    </div>
+  </div>
+  <md-sidenav class="md-sidenav-left" md-component-id="left"
+              md-disable-backdrop="" md-whiteframe="4" style="width: 20%;position: fixed;height: 100%">
+
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">商品详情信息</h1>
+    </md-toolbar>
+
+    <md-content layout-margin="" style="overflow: hidden">
+      <div class="flex_layout_column" style="width: 100%;height: 400px">
+        <img src="{{selected.image}}" style="width: 100%;">
+      </div>
+      <div><h2>{{selected.name}}</h2></div>
+      <div style="color: #e74c3c"><h3>￥{{selected.price}}</h3></div>
+      <div style="font-size: 16px;text-indent: 32px">{{selected.word_description}}</div>
+      <div class="flex_layout_row">
+        <md-button ng-click="toggleLeft('left')" class="md-accent">
+          关闭
+        </md-button>
+      </div>
+    </md-content>
+  </md-sidenav>
+
+  <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-disable-backdrop="" style="width: 20%;position: fixed;height: 100%;overflow-x: hidden">
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">修改个人信息</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <div class="flex_layout_column">
+        <!-- 采用angular循环的方式，对存入thumb的图片进行展示 -->
+        <label>
+          <img ng-src="{{thumb}}" style="width: 120px;height: 120px"/>
+        </label>
+        <div>
+          <input type="file" id="upload" accept="image/*" name="image" onchange="angular.element(this).scope().img_upload(this.files)" style="display: none"/>
+          <md-button md-colors="{background: 'green'}"
+                     style="margin:10px 20px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);"
+                     md-colors-watch="false" ng-click="Register()">
+            <label for="upload">上传头像</label>
+          </md-button>
+        </div>
+        <!--        -->
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">用户名</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">onekanofan</label>
+          <input ng-model="username" name="username">
+        </md-input-container>
+        <i ng-show="username" ng-click="clearUsername()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">密码</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">请输入密码</label>
+          <input type="password" name="password" ng-model="password">
+        </md-input-container>
+        <i ng-show="password" ng-click="clearPassword()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+        <span style="margin:22px 5px 0 0">手机号</span>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+          <label style="margin-bottom: 0">18523048276</label>
+          <input type="tel" ng-model="phoneID" name="phone">
+        </md-input-container>
+        <i ng-show="phoneID" ng-click="clearphoneID()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+      </div>
+      <div class="flex_layout_row">
+        <md-button class="md-primary md-raised"
+                   ng-click="changeInfo()">修改
+        </md-button>
+        <md-button ng-click="toggleLeft('right')" class="md-accent">
+          关闭
+        </md-button>
+      </div>
+    </md-content>
+
+  </md-sidenav>
+</div>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #f7f7f7;
+    font-family: Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+  }
+
+  .flex_layout_center{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex_layout_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .flex_layout_column {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .all_wrap{
+    width: 60%;
+    margin:0 auto;
+  }
+
+  .top_img{
+    width: 100%;
+  }
+
+  .img_desc{
+    font-size: 2.5em;
+    color: white;
+    white-space: nowrap;
+    position: absolute;
+  }
+
+  .items_wrap{
+    padding: 40px 5%;
+    border-left: #9e9e9e solid 1px;
+    border-right: #9e9e9e solid 1px;
+  }
+
+  .item_wrap{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    margin: 20px 15px;
+    box-shadow: 2px 3px 7px rgba(0, 0, 0, .08);
+    border-radius: .25em;
+    width: 200px;
+    height: 300px;
+    background-color: #fff;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+  }
+
+  .img_wrap {
+    width: 100%;
+    height: 200px;
+  }
+
+  .item_wrap:hover{
+    transform: translateY(-10px);
+  }
+
+</style>

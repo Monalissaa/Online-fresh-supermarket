@@ -16,7 +16,7 @@ angular.module('Login',['questionList'])
             }
         });
     })
-    .controller('LoginCtrl',function ($scope, List, $state) {
+    .controller('LoginCtrl',function ($scope, List, $state, $http) {
         $scope.clearUsername=function () {
             $scope.username='';
         };
@@ -25,13 +25,29 @@ angular.module('Login',['questionList'])
         };
         $scope.recall='请登录';
         $scope.login=function(username,password) {
-            List.Login('user',username,password).then(function (res) {
+            var formData=new FormData();
+            formData.append('username',username);
+            formData.append('password',password);
+            $http({
+                method: 'GET',
+                url: 'http://192.151.243.209/software/user',
+                data:formData,
+                headers:{
+                    'Content-Type':'multipart/form-data'
+                }
+            }).then(function successCallback(response) {
+                $scope.info='登录成功';
+                console.log(response);
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+            /*List.Login('user',formData).then(function (res) {
                 $scope.recall="登录成功";
                 console.log(res);
             }, function (res) {
                 $scope.recall="登录失败";
                 console.log(res);
-            });
+            });*/
         };
         $scope.Register=function () {
             $state.go('Register');

@@ -10,21 +10,20 @@ module('Resources',[
             //自定义config
             login:{
                 method:'GET',
-                hasBody:false,
+                hasBody:true,
+                headers:{
+                    'Content-Type':'multipart/form-data;charset=UTF-8',
+                }
             },
-            register:{
+            registers:{
                 method:'POST',
                 hasBody:true,
                 headers:{
                     'Content-Type':'multipart/form-data;charset=UTF-8',
                 }
             },
-            delete:{
-                method:'DELETE',
-                hasBody:true,
-                headers:{
-                    'Content-Type':'application/json;charset=UTF-8'
-                }
+            shopping:{
+                method:'GET'
             },
             put:{
                 method:'PUT',

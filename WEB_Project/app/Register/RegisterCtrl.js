@@ -18,6 +18,7 @@ angular.module('Register',['questionList'])
     })
 
 .controller('RegisterCtrl', function($scope, List, $state, $http) {
+    $scope.info='注册账户';
     $scope.clearUsername=function () {
         $scope.username='';
     };
@@ -44,6 +45,8 @@ angular.module('Register',['questionList'])
                 'Content-Type':undefined
             }
         }).then(function successCallback(response) {
+            $scope.info='注册成功';
+            $state.go('Login');
             console.log(response);
         }, function errorCallback(response) {
             console.log(response);

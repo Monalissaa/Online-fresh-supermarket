@@ -3,13 +3,9 @@
 angular.module('questionList', ['Resources','ngResource'])
     .factory('List', function ($q, $http, ListResources) {
         return {
-            Login : function (inter, user ,pass) {  //获取队列
+            Login : function (inter, userInfo) {  //获取队列
                 var defer = $q.defer();
-                ListResources.login({
-                    interface : inter,
-                    username : user,
-                    password : pass
-                }, function (res, headers) {
+                ListResources.login({interface : inter,}, userInfo, function (res, headers) {
                     defer.resolve(res);
                 }, function (res, headers) {
                     defer.reject(res);
@@ -18,7 +14,7 @@ angular.module('questionList', ['Resources','ngResource'])
             },
             Register: function (inter, userInfo) {      //取消题目
                 var defer = $q.defer();
-                ListResources.register({interface : inter}, userInfo,
+                ListResources.registers({interface : inter}, userInfo,
                     function (res, headers) {
                     defer.resolve(res);
                 }, function (res) {
@@ -26,11 +22,11 @@ angular.module('questionList', ['Resources','ngResource'])
                 });
                 return defer.promise;
             },
-            UpdateQ: function (inter, timu_ids) {      //确认题目
+            Shopping: function (inter) {      //确认题目
                 var defer = $q.defer();
-                ListResources.put({interface : inter}, timu_ids, function (res, headers) {
+                ListResources.shopping({interface : inter}, function (res, headers) {
                     defer.resolve(res);
-                }, function () {
+                }, function (res) {
                     defer.resolve(res);
                 });
                 return defer.promise;

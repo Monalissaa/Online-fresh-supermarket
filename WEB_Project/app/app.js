@@ -8,8 +8,9 @@ angular.module('myApp', [
   'ui.router',
   'Login',
   'Register',
+  'Shopping',
   'Headers',
 ])
     .controller('myAppCtrl',function ($scope, $state) {
-      $state.go('Login');
+      $state.go('Shopping');
     });
