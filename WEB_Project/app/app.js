@@ -7,6 +7,7 @@ angular.module('myApp', [
   'ngMessages',
   'ui.router',
   'Login',
+  'Register',
   'Headers',
 ])
     .controller('myAppCtrl',function ($scope, $state) {

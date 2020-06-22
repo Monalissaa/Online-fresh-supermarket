@@ -16,20 +16,24 @@ angular.module('Login',['questionList'])
             }
         });
     })
-    .controller('LoginCtrl',function ($scope,List) {
+    .controller('LoginCtrl',function ($scope, List, $state) {
         $scope.clearUsername=function () {
             $scope.username='';
         };
         $scope.clearPassword=function () {
             $scope.password='';
         };
+        $scope.recall='请登录';
         $scope.login=function(username,password) {
             List.Login('user',username,password).then(function (res) {
-                console.log("登录成功");
+                $scope.recall="登录成功";
                 console.log(res);
             }, function (res) {
-                console.log("登录失败。");
+                $scope.recall="登录失败";
                 console.log(res);
             });
+        };
+        $scope.Register=function () {
+            $state.go('Register');
         };
     });

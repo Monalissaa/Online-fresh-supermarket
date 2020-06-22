@@ -5,7 +5,7 @@ angular.module('questionList', ['Resources','ngResource'])
         return {
             Login : function (inter, user ,pass) {  //获取队列
                 var defer = $q.defer();
-                ListResources.get({
+                ListResources.login({
                     interface : inter,
                     username : user,
                     password : pass
@@ -16,12 +16,13 @@ angular.module('questionList', ['Resources','ngResource'])
                 });
                 return defer.promise;
             },
-            CancelQ: function (inter, timu_ids) {      //取消题目
+            Register: function (inter, userInfo) {      //取消题目
                 var defer = $q.defer();
-                ListResources.delete({interface : inter}, timu_ids, function (res, headers) {
+                ListResources.register({interface : inter}, userInfo,
+                    function (res, headers) {
                     defer.resolve(res);
-                }, function () {
-                    defer.resolve(res);
+                }, function (res) {
+                    defer.reject(res);
                 });
                 return defer.promise;
             },

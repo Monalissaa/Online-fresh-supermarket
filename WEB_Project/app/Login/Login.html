@@ -2,7 +2,7 @@
     <img src="./resources/全家首页.png" height="1000px">
 </div>
 <div id="log_in">
-    <p style="text-align: center;margin-top: 5px;font-size: 20px" id="tip">请登录</p>
+    <p style="text-align: center;margin-top: 5px;font-size: 20px" id="tip">{{recall}}</p>
     <div style="padding: 0 20px;width:350px;display: flex;align-items: center;position: relative">
         <i class="glyphicon glyphicon-user" style="font-size: 28px;color: #7d8694;margin: 20px 3px 0 0"></i>
         <md-input-container style="margin-bottom: 0;height: 30px;width: 100%;">
@@ -25,7 +25,7 @@
         <md-button class="md-primary md-raised" style="margin: 10px 20px" ng-click="login(username,password)">登录
         </md-button>
         <md-button md-colors="{background: 'green'}" style="margin:10px 20px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);"
-                   md-colors-watch="false" ng-click="Restore()">
+                   md-colors-watch="false" ng-click="Register()">
             注册
         </md-button>
     </div>

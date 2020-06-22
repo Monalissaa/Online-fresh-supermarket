@@ -8,9 +8,16 @@ module('Resources',[
     .factory('ListResources', function($resource, AppConstants) {
         return $resource(AppConstants.URL_BASE+'/:interface', {}, {
             //自定义config
-            get:{
+            login:{
                 method:'GET',
                 hasBody:false,
+            },
+            register:{
+                method:'POST',
+                hasBody:true,
+                headers:{
+                    'Content-Type':'multipart/form-data;charset=UTF-8',
+                }
             },
             delete:{
                 method:'DELETE',
@@ -27,5 +34,5 @@ module('Resources',[
                 }
             },
         });
-    })
+    });
 

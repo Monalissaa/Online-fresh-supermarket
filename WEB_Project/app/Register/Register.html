@@ -1,0 +1,95 @@
+<div id="background_image" style="text-align: center;overflow-y: hidden">
+    <img src="./resources/全家首页.png" height="1000px">
+</div>
+<form id="userInfo">
+    <p style="text-align: center;margin-top: 5px;font-size: 20px" id="tip">注册账户</p>
+    <div style="padding: 0 20px;width:350px;display: flex;align-items: center;position: relative">
+        <i class="glyphicon glyphicon-earphone" style="font-size: 28px;color: #7d8694;margin: 20px 3px 0 0"></i>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 100%;">
+            <label style="margin-bottom: 0">请输入手机号</label>
+            <input type="tel" ng-model="phoneID" name="phone">
+        </md-input-container>
+        <i ng-show="phoneID" ng-click="clearphoneID()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+    </div>
+    <div style="padding: 0 20px;margin:15px 0;width:350px;display: flex;align-items: center;position: relative">
+        <i class="glyphicon glyphicon-user" style="font-size: 28px;color: #7d8694;margin: 20px 3px 0 0"></i>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 100%;">
+            <label style="margin-bottom: 0">请输入用户名</label>
+            <input ng-model="username" name="username">
+        </md-input-container>
+        <i ng-show="username" ng-click="clearUsername()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+    </div>
+    <div style="padding: 0 20px;margin:15px 0;width:350px;display: flex;align-items: center;position: relative">
+        <i class="glyphicon glyphicon-lock" style="font-size: 28px;color: #7d8694;margin: 20px 3px 0 0"></i>
+        <md-input-container style="margin-bottom: 0;height: 30px;width: 100%;">
+            <label style="margin-bottom: 0">请输入密码</label>
+            <input type="password" name="password" ng-model="password">
+        </md-input-container>
+        <i ng-show="password" ng-click="clearPassword()" class="glyphicon glyphicon-remove"
+           style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+    </div>
+    <div style="display: flex;justify-content: center;font-size: 18px;width: 350px">
+        <md-button class="md-primary md-raised" style="margin: 10px 20px"
+                   ng-click="registerac(phoneID,username,password)">注册
+        </md-button>
+    </div>
+
+
+    <div id="app_download">
+        <!-- 采用angular循环的方式，对存入thumb的图片进行展示 -->
+        <label>
+            <img ng-src="{{thumb}}" style="width: 120px;height: 120px"/>
+        </label>
+        <div>
+            <input type="file" id="upload" accept="image/*" name="image" onchange="angular.element(this).scope().img_upload(this.files)" style="display: none"/>
+            <md-button md-colors="{background: 'green'}"
+                       style="margin:10px 20px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);"
+                       md-colors-watch="false" ng-click="Register()">
+                <label for="upload">上传头像</label>
+            </md-button>
+        </div>
+<!--        -->
+    </div>
+</form>
+    <style>
+        body {
+            background-image: url('./resources/backgroundimage.png');
+            background-repeat: repeat-x;
+        }
+
+        #userInfo {
+            background-color: #F4F5F7;
+            height: 340px;
+            width: 520px;
+            display: block;
+            position: absolute;
+            top: 400px;
+            left: 52%;
+            border-radius: 10px;
+            box-shadow: 9px 9px 12px -4px rgba(0, 0, 0, 0.5);
+            border-top: solid #48bc54 20px;
+            border-bottom: solid #509bcd 20px;
+        }
+
+        @media (max-width: 1042px) {
+            #log_in {
+                right: 0;
+                left: auto;
+            }
+        }
+
+        #app_download {
+            width: 120px;
+            float: left;
+            position: absolute;
+            right: 30px;
+            top: 50px;
+            text-align: center;
+        }
+
+        #background_image {
+            text-align: center;
+        }
+    </style>
