@@ -10,6 +10,7 @@ angular.module('myApp', [
   'Register',
   'Shopping',
   'Cart',
+  'Bill',
   'Headers',
 ])
     .controller('myAppCtrl',function ($scope, $state) {

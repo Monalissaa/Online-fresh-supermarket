@@ -1,18 +1,92 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 flex_layout_column">
             <!--Sidebar content-->
-            <p>
-                搜索:
-                <input ng-model="query" />
-            </p>
+            <div style="padding: 0;display: flex;align-items: center">
+                <i class="glyphicon glyphicon-search" style="font-size: 28px;color: #7d8694;margin: 20px 3px 0 0"></i>
+                <md-input-container style="margin-bottom: 0;height: 30px;width: 100%">
+                    <label style="margin-bottom: 0">搜索购物车内容</label>
+                    <input ng-model="query">
+                </md-input-container>
+                <i ng-show="query" ng-click="clearInput()" class="glyphicon glyphicon-remove"
+                   style="color:#7d8694;font-size:20px;position: absolute;top:25px;right:32px"></i>
+            </div>
+            <h1 ng-show="!address.length" class="md-title" style="margin:15px 20px 0 23px">暂无收货地址</h1>
+            <h1 ng-show="address.length" class="md-title" style="margin:15px 20px 0 23px">选择收货地址</h1>
+            <div ng-show="address.length" style="display: flex;align-items: center;justify-content: space-between">
+                <md-input-container style="margin:15px 0 0 0">
+                    <md-select ng-model="selectedaddress" class="selectdemoSelectHeader">
+                        <md-select-header class="demo-select-header">
+                            <md-input-container style="margin-bottom: 0;height: 30px">
+                                <label style="margin-bottom: 0">搜索收获地址...</label>
+                                <input ng-model="searchaddress">
+                            </md-input-container>
+                        </md-select-header>
+                        <md-optgroup>
+                            <md-option ng-value="item.shipping_addressID" style="padding-left: 16px;" ng-repeat="item in address | filter:searchaddress">{{item.city}} {{item.area}} {{item.street}} {{item.details}}
+                            </md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <md-button class="md-primary md-raised" style="margin: 10px 20px" ng-click="addAddress()">添加收获地址
+            </md-button>
+            <md-button ng-show="address.length" class="md-raised md-warn" style="margin-top: 100px" ng-click="confirmPurchase(selectedaddress)">提交订单</md-button>
+        </div>
+
+        <div id="addAdress" style="background-color:white;position: fixed;height: 360px;width: 400px;top: 50%;left: 50%;margin-top: -180px;margin-left: -200px;display: none;border-radius: 5px;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);z-index: 99;padding:50px 30px">
+            <i ng-click="closeaddAddress()" class="glyphicon glyphicon-remove"
+               style="color:#7d8694;font-size:20px;position: absolute;top:10px;right:10px"></i>
+            <form id="addressInfo" class="flex_layout_column">
+                <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+                    <span style="margin:22px 5px 0 0">省（市）</span>
+                    <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+                        <label style="margin-bottom: 0">输入省（市）</label>
+                        <input type="text" ng-model="city">
+                    </md-input-container>
+                    <i ng-show="city" ng-click="clearcity()" class="glyphicon glyphicon-remove"
+                       style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+                </div>
+                <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+                    <span style="margin:22px 5px 0 0">市（区）</span>
+                    <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+                        <label style="margin-bottom: 0">输入市（区）</label>
+                        <input type="text" ng-model="area">
+                    </md-input-container>
+                    <i ng-show="area" ng-click="cleararea()" class="glyphicon glyphicon-remove"
+                       style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+                </div>
+                <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+                    <span style="margin:22px 5px 0 0">街道</span>
+                    <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+                        <label style="margin-bottom: 0">输入街道</label>
+                        <input type="text" ng-model="street">
+                    </md-input-container>
+                    <i ng-show="street" ng-click="clearstreet()" class="glyphicon glyphicon-remove"
+                       style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+                </div>
+                <div style="padding: 0 20px;width:350px;display: flex;justify-content:space-between;align-items: center;position: relative">
+                    <span style="margin:22px 5px 0 0">门牌号</span>
+                    <md-input-container style="margin-bottom: 0;height: 30px;width: 80%;">
+                        <label style="margin-bottom: 0">输入门牌号</label>
+                        <input type="text" ng-model="details">
+                    </md-input-container>
+                    <i ng-show="details" ng-click="cleardetails()" class="glyphicon glyphicon-remove"
+                       style="color:#7d8694;font-size:20px;position: absolute;top:26px;right:20px"></i>
+                </div>
+                <md-button class="md-primary md-raised" style="margin-top: 40px"
+                           ng-click="submit(city, area, street, details)">提交
+                </md-button>
+            </form>
 
         </div>
+
         <div class="col-md-10">
             <!--Body content-->
 
+            <div ng-show="!cart_item.length" style="text-align: center;font-size: 25px;font-weight: bold">购物车空空的~</div>
             <ul class="phones">
-                <li ng-repeat="(key,item) in cart_item | filter:query"
+                <li ng-repeat="item in cart_item | filter:query"
                     class="thumbnail phone-list-item" style="height: 150px;padding: 0;position: relative">
                     <div style="float: left;height: 100%;width: 160px;margin-right: 10px" class="flex_layout_center">
                     <img ng-src="{{item.image}}" style="height: 100%"; alt="{{item.name}}" />
@@ -26,7 +100,6 @@
                         <div class="confirm_wrap flex_layout_row">
                             <button id="purchase_btn" ng-click="deleteItem(item.goodsID)" class="confirm">删除</button>
                         </div>
-                        <span style="margin-top: 5px;color: #4cae4c;font-size: 20px">{{recall}}</span>
                     </div>
                 </li>
             </ul>
@@ -270,4 +343,28 @@
         box-shadow: 0 0 0 0.2rem rgb(231,76,60);
     }
 
+
+
+
+
+
+    .selectdemoSelectHeader {
+        /* Please note: All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */ }
+    .selectdemoSelectHeader .demo-header-searchbox {
+        border: none;
+        outline: none;
+        height: 100%;
+        width: 100%;
+        padding: 0; }
+    .selectdemoSelectHeader .demo-select-header {
+        box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+        padding-left: 10.667px;
+        height: 48px;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: auto; }
+    .selectdemoSelectHeader md-content._md {
+        max-height: 240px; }
 </style>

@@ -1,0 +1,258 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2" style="background-color: white">
+            <div ng-show="!bills.length" style="text-align: center;font-size: 25px;font-weight: bold">啥都没有买~</div>
+            <!--Sidebar content-->
+            <div ng-show="bills.length" style="padding: 0;display: flex;align-items: center">
+                <i class="glyphicon glyphicon-search" style="font-size: 28px;color: #7d8694;margin: 20px 3px 0 0"></i>
+                <md-input-container style="margin-bottom: 0;height: 30px;width: 100%">
+                    <label style="margin-bottom: 0">搜索历史账单</label>
+                    <input ng-model="query">
+                </md-input-container>
+                <i ng-show="query" ng-click="clearInput()" class="glyphicon glyphicon-remove"
+                   style="color:#7d8694;font-size:20px;position: absolute;top:25px;right:32px"></i>
+            </div>
+            <md-card md-theme="dark-grey" md-theme-watch style="width: 100%;border-radius: 5px"  ng-repeat="(key,item) in bills" ng-click="Detail(key)">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">账单号：{{item.shipping_billID}}</span>
+                        <span class="md-subhead" style="color: #e74c3c">总价：￥{{item.total_amount}}</span>
+                        <span class="md-subhead">收货地址：<br/>{{item.shipping_address}}</span>
+                    </md-card-title-text>
+                </md-card-title>
+        </div>
+
+
+        <div class="col-md-10">
+            <!--Body content-->
+
+
+            <ul class="phones">
+                <li ng-repeat="item in goods"
+                    class="thumbnail phone-list-item" style="height: 150px;padding: 0;position: relative">
+                    <div style="float: left;height: 100%;width: 160px;margin-right: 10px" class="flex_layout_center">
+                        <img ng-src="{{item.image}}" style="height: 100%" />
+                    </div>
+                    <h4>{{item.name}}</h4>
+                    <h4 style="color: #e74c3c">￥{{item.price}}</h4>
+                    <h5 style="color: #7d8694">{{item.category}}</h5>
+                    <h5 style="text-indent: 28px">{{item.word_description}}</h5>
+                    <div id="purchase_wrap" class="purchase_wrap">
+                        <p id="num_tip">购买数量：<span id="surplus" class="surplus">{{item.number}}</span></p>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<style>
+    #Tmain{
+        padding: 20px;
+    }
+
+    .flex_layout_center{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex_layout_row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .flex_layout_column {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    /* Animate `ngRepeat` in `phoneList` component */
+    .phone-list-item.ng-enter,
+    .phone-list-item.ng-leave,
+    .phone-list-item.ng-move {
+        overflow: hidden;
+        transition: 0.5s linear all;
+    }
+
+    .phone-list-item.ng-enter,
+    .phone-list-item.ng-leave.ng-leave-active,
+    .phone-list-item.ng-move {
+        height: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    .phone-list-item.ng-enter.ng-enter-active,
+    .phone-list-item.ng-leave,
+    .phone-list-item.ng-move.ng-move-active {
+        height: 120px;
+        margin-bottom: 20px;
+        opacity: 1;
+        padding-bottom: 4px;
+        padding-top: 15px;
+    }
+
+    /* Animate view transitions with `ngView` */
+    .view-container {
+        position: relative;
+    }
+
+    .view-frame {
+        margin-top: 20px;
+    }
+
+    .view-frame.ng-enter,
+    .view-frame.ng-leave {
+        background: white;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .view-frame.ng-enter {
+        animation: 1s fade-in;
+        z-index: 100;
+    }
+
+    .view-frame.ng-leave {
+        animation: 1s fade-out;
+        z-index: 99;
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes fade-out {
+        from { opacity: 1; }
+        to   { opacity: 0; }
+    }
+    .phones {
+        list-style: none;
+    }
+
+    .phones li {
+        clear: both;
+        height: 115px;
+        padding-top: 15px;
+    }
+
+    .thumb {
+        float: left;
+        height: 100px;
+        margin: -0.5em 1em 1.5em 0;
+        padding-bottom: 1em;
+        width: 100px;
+    }
+
+    /* View: Phone detail */
+    .phone {
+        background-color: white;
+        display: none;
+        float: left;
+        height: 400px;
+        margin-bottom: 2em;
+        margin-right: 3em;
+        padding: 2em;
+        width: 400px;
+    }
+
+    .phone:first-child {
+        display: block;
+    }
+
+    .phone-images {
+        background-color: white;
+        float: left;
+        height: 450px;
+        overflow: hidden;
+        position: relative;
+        width: 450px;
+    }
+
+    .phone-thumbs {
+        list-style: none;
+        margin: 0;
+    }
+
+    .phone-thumbs img {
+        height: 100px;
+        padding: 1em;
+        width: 100px;
+    }
+
+    .phone-thumbs li {
+        background-color: white;
+        border: 1px solid black;
+        cursor: pointer;
+        display: inline-block;
+        margin: 1em;
+    }
+
+    .specs {
+        clear: both;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .specs dt {
+        font-weight: bold;
+    }
+
+    .specs > li {
+        display: inline-block;
+        vertical-align: top;
+        width: 200px;
+    }
+
+    .specs > li > span {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    /* Older browsers might need vendor-prefixes for keyframes and animation! */
+
+    .purchase_wrap{
+        position: absolute;
+        right: 30px;
+        top: 0;
+        height: 145px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .purchase_wrap > p{
+        color: #333;
+        font-size: 18px;
+        margin: 5px 0;
+    }
+    .purchase_wrap > p > span{
+        color: #e74c3c;
+        font-weight: bold;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    .createFollowCheck input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    .purchase_wrap > .flex_layout_row > label:hover{
+        background-color: #c0392b;
+    }
+</style>

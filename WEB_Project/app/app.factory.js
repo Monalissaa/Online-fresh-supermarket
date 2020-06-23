@@ -74,5 +74,34 @@ angular.module('questionList', ['Resources','ngResource'])
                 });
                 return defer.promise;
             },
+            Addaddress : function (inter, userID, city, area, street, details) {  //获取队列
+                var defer = $q.defer();
+                ListResources.purchase({
+                    interface : inter,
+                    userID:userID,
+                    city:city,
+                    area:area,
+                    street:street,
+                    details:details
+                }, function (res, headers) {
+                    defer.resolve(res);
+                }, function (res, headers) {
+                    defer.reject(res);
+                });
+                return defer.promise;
+            },
+            PurchaseConfirm : function (inter, userID, address) {  //获取队列
+                var defer = $q.defer();
+                ListResources.purchase({
+                    interface : inter,
+                    userID:userID,
+                    shipping_addressID: address
+                }, function (res, headers) {
+                    defer.resolve(res);
+                }, function (res, headers) {
+                    defer.reject(res);
+                });
+                return defer.promise;
+            },
         };
     });
